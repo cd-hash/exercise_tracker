@@ -16,7 +16,8 @@ const exerciseSchema = new mongoose.Schema({
   },
   date: {
     type: Date
-  }
+  },
+  versionKey: false
 });
 
 export const exercise = mongoose.model("exercise", exerciseSchema)

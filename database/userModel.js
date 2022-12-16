@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  versionKey: false
 });
 
 export const user = mongoose.model("user", userSchema)
