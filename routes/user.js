@@ -4,6 +4,12 @@ import { user } from "../database/userModel.js"
 //create our user-router
 const userCreateRouter = express.Router();
 
+// get all users on /api/users
+userCreateRouter.get("/api/users", async (_req, res) => {
+  const allUsers = await user.find();
+  res.json(allUsers);
+});
+
 // create a new user on /api/users
 userCreateRouter.post("/api/users", async (req, res) => {
   const username = req.body.username;
