@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors"
 import mongoose from "mongoose"
 import { userCreateRouter } from "./routes/user.js"
+import { createExerciseRoute, getExerciseLogRoute } from "./routes/exercise.js"
 
 mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
@@ -28,6 +29,10 @@ app.get('/check-db', (_, res) => {
 })
 
 app.use(userCreateRouter)
+
+app.use(createExerciseRoute)
+
+app.use(getExerciseLogRoute)
 
 
 const listener = app.listen(process.env.PORT || 3000, () => {
