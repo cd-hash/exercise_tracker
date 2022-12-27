@@ -17,7 +17,7 @@ userCreateRouter.post("/api/users", async (req, res) => {
   const newUser = await user.create({
     username
   });
-  res.json(newUser)
+  res.json(newUser);
 });
 
 // handle user creation on post
