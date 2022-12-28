@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const Schema = mongoose.Schema;
+
 // Users Schema
 const userSchema = new mongoose.Schema({
   username: {
@@ -7,6 +9,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  exercises: [{
+    type: Schema.Types.ObjectId,
+    ref: "exercise"
+  }],
   versionKey: false
 });
 
