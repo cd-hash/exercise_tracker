@@ -3,10 +3,13 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const exerciseSchema = new mongoose.Schema({
-  username: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: "user",
     required: true
+  },
+  username: {
+    type: String
   },
   description: {
     type: String
