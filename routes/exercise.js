@@ -64,10 +64,28 @@ const createExerciseLog = userObject => {
 };
 
 const userExerciseLog = (req, res) => {
-  const userId = req.params._id
+  const userId = req.params._id;
+  let { from, to, limit } = req.query;
+  limit = limit || 100;
+  let exerciseFilters = {};
+  let dateFilters = {};
+  console.log({from, to, limit})
+  if (from) {
+    dateFilters["$gte"] = new Date(from)
+  };
+  if (to) {
+    dateFilters["$lte"] = new Date(to)
+  };
+  if (from || to) {
+    exerciseFilters.date = dateFilters;
+  };
   user.
     findById(userId).
-    populate("exercises").
+    populate({
+      path: "exercises",
+      match: exerciseFilters,
+      options: {limit: limit}
+    }).
     exec((err, user) => {
       if (err) {
         res.json({
@@ -80,7 +98,7 @@ const userExerciseLog = (req, res) => {
     });
 };
 
-getExerciseLogRoute.get("/api/users/:_id/logs", userExerciseLog)
+getExerciseLogRoute.get("/api/users/:_id/logs", userExerciseLog);
 
 
 export {
