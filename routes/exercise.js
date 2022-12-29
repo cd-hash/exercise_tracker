@@ -53,9 +53,15 @@ const createExerciseLog = userObject => {
     username: userObject.username,
     count: userObject.exercises.length,
     _id: userObject._id,
-    log: userObject.exercises
-  }
-}
+    log: userObject.exercises.map(exercise => {
+      return {
+        description: exercise.description,
+        duration: exercise.duration,
+        date: exercise.date.toDateString()
+      };
+    })
+  };
+};
 
 const userExerciseLog = (req, res) => {
   const userId = req.params._id
