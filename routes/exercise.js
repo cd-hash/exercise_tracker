@@ -18,7 +18,7 @@ const cleanDate = (dateString) => {
 
 const createExercise = async (req, res) => {
   const { description, duration, date} = req.body;
-  const userId = req.body[":_id"];
+  const userId = req.params._id;
   const foundUser = await user.findById(userId)
   if (!foundUser) {
     res.json({
@@ -37,7 +37,13 @@ const createExercise = async (req, res) => {
   });
   foundUser.exercises.push(newExercise._id)
   foundUser.save()
-  res.json(newExercise);
+  res.send({
+    username: foundUser.username,
+    description: description,
+    duration: cleanedDuration,
+    _id: foundUser._id,
+    date: cleanedDate.toDateString()
+  });
 };
 createExerciseRoute.post("/api/users/:_id/exercises", createExercise);
 
